@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		DBF02FFE2FB59DA80042778A /* PBXContainerItemProxy */ = {
+		DBF030082FB59DA80042778A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DBF02FDC2FB59DA70042778A /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DBF02FE32FB59DA70042778A;
 			remoteInfo = Craps;
 		};
-		DBF030082FB59DA80042778A /* PBXContainerItemProxy */ = {
+		DBF373D32FB6424E007587E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DBF02FDC2FB59DA70042778A /* Project object */;
 			proxyType = 1;
@@ -25,8 +25,8 @@
 
 /* Begin PBXFileReference section */
 		DBF02FE42FB59DA70042778A /* Craps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Craps.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBF02FFD2FB59DA80042778A /* CrapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF030072FB59DA80042778A /* CrapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF373CF2FB6424E007587E5 /* CrapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,27 +48,25 @@
 			path = Craps;
 			sourceTree = "<group>";
 		};
-		DBF030002FB59DA80042778A /* CrapsTests */ = {
+		DBF0300A2FB59DA80042778A /* CrapsUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CrapsUITests;
+			sourceTree = "<group>";
+		};
+		DBF373D02FB6424E007587E5 /* CrapsTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CrapsTests;
 			sourceTree = "<group>";
 		};
-		DBF0300A2FB59DA80042778A /* CrapsUITests */ = {
+		DBF373E02FB64447007587E5 /* CrapsCore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CrapsUITests;
+			path = CrapsCore;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DBF02FE12FB59DA70042778A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DBF02FFA2FB59DA80042778A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,15 +80,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBF373CC2FB6424E007587E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DBF02FDB2FB59DA70042778A = {
 			isa = PBXGroup;
 			children = (
+				DBF373E02FB64447007587E5 /* CrapsCore */,
 				DBF02FE62FB59DA70042778A /* Craps */,
-				DBF030002FB59DA80042778A /* CrapsTests */,
 				DBF0300A2FB59DA80042778A /* CrapsUITests */,
+				DBF373D02FB6424E007587E5 /* CrapsTests */,
 				DBF02FE52FB59DA70042778A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				DBF02FE42FB59DA70042778A /* Craps.app */,
-				DBF02FFD2FB59DA80042778A /* CrapsTests.xctest */,
 				DBF030072FB59DA80042778A /* CrapsUITests.xctest */,
+				DBF373CF2FB6424E007587E5 /* CrapsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				DBF02FE62FB59DA70042778A /* Craps */,
+				DBF373E02FB64447007587E5 /* CrapsCore */,
 			);
 			name = Craps;
 			packageProductDependencies = (
@@ -129,29 +136,6 @@
 			productName = Craps;
 			productReference = DBF02FE42FB59DA70042778A /* Craps.app */;
 			productType = "com.apple.product-type.application";
-		};
-		DBF02FFC2FB59DA80042778A /* CrapsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DBF030152FB59DA80042778A /* Build configuration list for PBXNativeTarget "CrapsTests" */;
-			buildPhases = (
-				DBF02FF92FB59DA80042778A /* Sources */,
-				DBF02FFA2FB59DA80042778A /* Frameworks */,
-				DBF02FFB2FB59DA80042778A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DBF02FFF2FB59DA80042778A /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DBF030002FB59DA80042778A /* CrapsTests */,
-			);
-			name = CrapsTests;
-			packageProductDependencies = (
-			);
-			productName = CrapsTests;
-			productReference = DBF02FFD2FB59DA80042778A /* CrapsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		DBF030062FB59DA80042778A /* CrapsUITests */ = {
 			isa = PBXNativeTarget;
@@ -176,6 +160,29 @@
 			productReference = DBF030072FB59DA80042778A /* CrapsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DBF373CE2FB6424E007587E5 /* CrapsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBF373D52FB6424E007587E5 /* Build configuration list for PBXNativeTarget "CrapsTests" */;
+			buildPhases = (
+				DBF373CB2FB6424E007587E5 /* Sources */,
+				DBF373CC2FB6424E007587E5 /* Frameworks */,
+				DBF373CD2FB6424E007587E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DBF373D42FB6424E007587E5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DBF373D02FB6424E007587E5 /* CrapsTests */,
+			);
+			name = CrapsTests;
+			packageProductDependencies = (
+			);
+			productName = CrapsTests;
+			productReference = DBF373CF2FB6424E007587E5 /* CrapsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,11 +196,11 @@
 					DBF02FE32FB59DA70042778A = {
 						CreatedOnToolsVersion = 26.4;
 					};
-					DBF02FFC2FB59DA80042778A = {
+					DBF030062FB59DA80042778A = {
 						CreatedOnToolsVersion = 26.4;
 						TestTargetID = DBF02FE32FB59DA70042778A;
 					};
-					DBF030062FB59DA80042778A = {
+					DBF373CE2FB6424E007587E5 = {
 						CreatedOnToolsVersion = 26.4;
 						TestTargetID = DBF02FE32FB59DA70042778A;
 					};
@@ -214,8 +221,8 @@
 			projectRoot = "";
 			targets = (
 				DBF02FE32FB59DA70042778A /* Craps */,
-				DBF02FFC2FB59DA80042778A /* CrapsTests */,
 				DBF030062FB59DA80042778A /* CrapsUITests */,
+				DBF373CE2FB6424E007587E5 /* CrapsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -228,14 +235,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBF02FFB2FB59DA80042778A /* Resources */ = {
+		DBF030052FB59DA80042778A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBF030052FB59DA80042778A /* Resources */ = {
+		DBF373CD2FB6424E007587E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,14 +259,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBF02FF92FB59DA80042778A /* Sources */ = {
+		DBF030032FB59DA80042778A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DBF030032FB59DA80042778A /* Sources */ = {
+		DBF373CB2FB6424E007587E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,15 +276,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DBF02FFF2FB59DA80042778A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DBF02FE32FB59DA70042778A /* Craps */;
-			targetProxy = DBF02FFE2FB59DA80042778A /* PBXContainerItemProxy */;
-		};
 		DBF030092FB59DA80042778A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DBF02FE32FB59DA70042778A /* Craps */;
 			targetProxy = DBF030082FB59DA80042778A /* PBXContainerItemProxy */;
+		};
+		DBF373D42FB6424E007587E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF02FE32FB59DA70042778A /* Craps */;
+			targetProxy = DBF373D32FB6424E007587E5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -467,50 +474,6 @@
 			};
 			name = Release;
 		};
-		DBF030162FB59DA80042778A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8YJPN74BG5;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.matt.CrapsTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
-			};
-			name = Debug;
-		};
-		DBF030172FB59DA80042778A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8YJPN74BG5;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.matt.CrapsTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
-			};
-			name = Release;
-		};
 		DBF030192FB59DA80042778A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -551,6 +514,48 @@
 			};
 			name = Release;
 		};
+		DBF373D62FB6424E007587E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8YJPN74BG5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matt.CrapsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
+			};
+			name = Debug;
+		};
+		DBF373D72FB6424E007587E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8YJPN74BG5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matt.CrapsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -572,20 +577,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DBF030152FB59DA80042778A /* Build configuration list for PBXNativeTarget "CrapsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DBF030162FB59DA80042778A /* Debug */,
-				DBF030172FB59DA80042778A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DBF030182FB59DA80042778A /* Build configuration list for PBXNativeTarget "CrapsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBF030192FB59DA80042778A /* Debug */,
 				DBF0301A2FB59DA80042778A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBF373D52FB6424E007587E5 /* Build configuration list for PBXNativeTarget "CrapsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF373D62FB6424E007587E5 /* Debug */,
+				DBF373D72FB6424E007587E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
