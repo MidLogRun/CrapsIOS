@@ -202,7 +202,6 @@
 					};
 					DBF373CE2FB6424E007587E5 = {
 						CreatedOnToolsVersion = 26.4;
-						TestTargetID = DBF02FE32FB59DA70042778A;
 					};
 				};
 			};
@@ -517,7 +516,6 @@
 		DBF373D62FB6424E007587E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8YJPN74BG5;
@@ -531,14 +529,12 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
 			};
 			name = Debug;
 		};
 		DBF373D72FB6424E007587E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8YJPN74BG5;
@@ -552,7 +548,6 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Craps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Craps";
 			};
 			name = Release;
 		};

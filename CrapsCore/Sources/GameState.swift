@@ -7,26 +7,33 @@
 
 
 class GameState {
-    var comeOutRoll: Bool
-    var betMap: [Int: Int]
+   private var rollHistory: [RollResult]
+    private var balance: Int
 
     init() {
-        betMap = {
-            2:0,
-            3:0,
-            4:0,
-            5:0,
-            6:0,
-            7:0,
-            8:0,
-            9:0,
-            10:0,
-            11:0,
-            12:0
-        }
-
-        comeOutRoll = true
-
+        self.rollHistory = []
+        balance = 0
     }
+
+    public func updateRollHistory(roll: RollResult) -> Void {
+        self.rollHistory.append(roll)
+    }
+
+    public func getRollHistory() -> [RollResult]{
+        return self.rollHistory
+    }
+
+    public func getRollHistoryTotals() -> [Int]{
+        var totals: [Int] = []
+        for i in self.rollHistory {
+            totals.append(i.total)
+        }
+        return totals
+    }
+
+    public func updateBalance(amount: Int) -> Void {
+        self.balance += amount
+    }
+
 
 }

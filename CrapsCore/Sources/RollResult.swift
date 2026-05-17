@@ -30,4 +30,29 @@ struct RollResult {
         left == right
     }
 
+    var possibleBets: [BetType] {
+        switch total {
+            case 2:
+                return [.dontLine, .field, .highHorn]
+            case 3:
+                return [.dontLine, .field, .lowHorn]
+            case 4:
+                return [.come, .field, .place, .buy, .lay]
+            case 5, 6, 8:
+                return [.come, .place, .buy, .lay]
+            case 7:
+                return [.passLine, .come]
+            case 9, 10:
+                return [.come, .place, .buy, .lay, .field]
+            case 11:
+                return [.passLine, .come, .field, .lowHorn]
+            case 12:
+                return [.dontLine, .field, .highHorn]
+            default:
+                return []
+        }
+    }
+
+
+
 }
