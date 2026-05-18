@@ -10,15 +10,17 @@ import XCTest
 
 final class PlayerTests: XCTestCase{
 
-
     func testInit(){
-        let player = Player(name: "hi", balance: 100)
+        let player = Player(
+            name: "hi",
+            balance: 100,
+            strategy: DumbPassLineStrategy()
+        )
     }
 
     func testBetTwice(){
-        let player = Player(name: "Matt", balance: 1000)
+        let player = Player(name: "Matt", balance: 1000,  strategy: DumbPassLineStrategy())
         let betAmount = 25
-        let key = 4
 
         let bet1: Bet = Bet.dontLine(amount: betAmount)
         let bet2: Bet = Bet.fieldBet(amount: betAmount)
@@ -30,7 +32,7 @@ final class PlayerTests: XCTestCase{
     }
 
     func testBetThreeTimes(){
-        let player = Player(name: "Matt", balance: 1000)
+        let player = Player(name: "Matt", balance: 1000,  strategy: DumbPassLineStrategy())
         let betAmount = 25
         let key = 4
 
@@ -43,6 +45,32 @@ final class PlayerTests: XCTestCase{
 
         let bets = player.listBets()
         XCTAssertEqual(player.getBalance(), 925)
+    }
+
+
+    func testPlayerCannotBetWithNoMoney(){
+        let player = Player(name: "Broke boi", balance: 0,  strategy: DumbPassLineStrategy())
+        let betAmount = 25
+
+        let bet: Bet = Bet.passLine(amount: betAmount)
+        let isValid = player.makeBet(bet: bet)
+
+        XCTAssertFalse(isValid, "Player should not be able to make a bet with no money.")
+    }
+
+    func testPlayerCanMakeOneValidBetsWithDeclaredBalance(){
+        let player = Player(name: "Joe Schmo", balance: 10,  strategy: DumbPassLineStrategy())
+        let betAmount1 = 10
+
+        let bet1: Bet = Bet.passLine(amount: betAmount1)
+        var isValid = player.makeBet(bet: bet1)
+
+        XCTAssertTrue(isValid, "Player should be able to make this bet.")
+        let betAmount2 = 11
+        let bet2: Bet = Bet.passLine(amount: betAmount2)
+        isValid = player.makeBet(bet: bet2)
+        XCTAssertFalse(isValid, "Player should not be able to make this bet.")
+
     }
 
 
@@ -71,7 +99,7 @@ final class PlayerTests: XCTestCase{
     }
 
     private func assertPlaceBet(on: Int) {
-        let player = Player(name: "Matt", balance: 1000)
+        let player = Player(name: "Matt", balance: 1000,  strategy: DumbPassLineStrategy())
         let betAmount = 25
         let bet = Bet.placeBet(amount: betAmount, on: on)
         player.makeBet(bet: bet)

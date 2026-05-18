@@ -38,6 +38,13 @@ final class GameStateTests: XCTestCase {
         }
     }
 
+    func testUpdateBalanceUpdatesBalance() {
+        let state = GameState()
+        state.updateBalance(amount: 5)
+        let updatedBalance = state.getBalance()
+        XCTAssertEqual(updatedBalance, 5)
+    }
+
 
 }
 

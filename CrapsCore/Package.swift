@@ -17,10 +17,14 @@ let package = Package(
         .target(
             name: "CrapsCore"
         ),
+        .executableTarget(
+            name: "CrapsCLI",
+            dependencies: ["CrapsCore"]),
         .testTarget(
             name: "CrapsCoreTests",
             dependencies: ["CrapsCore"]
         ),
     ],
+
     swiftLanguageModes: [.v6]
 )

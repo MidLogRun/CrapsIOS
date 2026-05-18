@@ -5,6 +5,8 @@
 //  Created by Matthew Long on 5/16/26.
 //
 
+import Foundation
+
 enum BetType: String {
     case passLine = "Pass Line"
     case dontLine = "Don't Pass Bar"
@@ -17,17 +19,23 @@ enum BetType: String {
     case highHorn = "High Horn" //2 and 12
 }
 
-
+enum BetOutcome {
+    case win
+    case lose
+    case noAction
+}
 
 //Static factory methods
-struct Bet {
-    let on: Int?
-    let amount: Int
-    var isActive: Bool
+public struct Bet {
+    public let id: UUID
+    public let on: Int?
+    public let amount: Int
+    public var isActive: Bool
     let type: BetType
 
 
     init (type: BetType, amount: Int, isActive: Bool){
+        self.id = UUID()
         self.type = type
         self.amount = amount
         self.isActive = isActive
@@ -35,33 +43,34 @@ struct Bet {
     }
 
     init (on: Int, amount: Int, isActive: Bool){
+        self.id = UUID()
         self.type = .place
         self.amount = amount
         self.on = on
         self.isActive = isActive
     }
 
-    static func passLine( amount: Int) -> Bet {
+    public static func passLine( amount: Int) -> Bet {
         Bet(type: BetType.passLine, amount: amount, isActive: true)
     }
 
-    static func dontLine( amount: Int) -> Bet {
+    public static func dontLine( amount: Int) -> Bet {
         Bet(type: BetType.dontLine, amount: amount, isActive: true)
     }
 
-    static func placeBet( amount: Int, on: Int) -> Bet {
+    public static func placeBet( amount: Int, on: Int) -> Bet {
         Bet(on: on, amount: amount, isActive: true)
     }
 
-    static func fieldBet( amount: Int) -> Bet {
+    public static func fieldBet( amount: Int) -> Bet {
         Bet(type: .field, amount: amount, isActive: true)
     }
 
-    static func lowHornBet( amount: Int) -> Bet {
+    public static func lowHornBet( amount: Int) -> Bet {
         Bet(type: .lowHorn, amount: amount, isActive: true)
     }
 
-    static func highHornBet( amount: Int) -> Bet {
+    public  static func highHornBet( amount: Int) -> Bet {
         Bet(type: .highHorn, amount: amount, isActive: true)
     }
 

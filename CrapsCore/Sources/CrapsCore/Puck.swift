@@ -6,11 +6,11 @@
 //
 
 
-struct Puck {
+public struct Puck {
     var isOn: Bool
     var point: Optional<Int>
 
-    init() {
+   public init() {
         self.isOn = false
         self.point = nil
     }

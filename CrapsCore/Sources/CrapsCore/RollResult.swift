@@ -6,10 +6,14 @@
 //
 
 
-struct RollResult {
-    let left: Int
-    let right: Int
+public struct RollResult {
+    public let left: Int
+    public let right: Int
 
+    public init(left: Int, right: Int) {
+        self.left = left
+        self.right = right
+    }
     var total: Int {
         left + right
     }

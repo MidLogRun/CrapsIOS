@@ -6,13 +6,18 @@
 //
 
 
-class GameState {
+public class GameState {
    private var rollHistory: [RollResult]
     private var balance: Int
 
-    init() {
+   public init() {
         self.rollHistory = []
         balance = 0
+    }
+
+    public init(balance: Int){
+        self.rollHistory = []
+        self.balance = balance
     }
 
     public func updateRollHistory(roll: RollResult) -> Void {
@@ -35,5 +40,8 @@ class GameState {
         self.balance += amount
     }
 
+    public func getBalance() -> Int {
+        self.balance
+    }
 
 }
