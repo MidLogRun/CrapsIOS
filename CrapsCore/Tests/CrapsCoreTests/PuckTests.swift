@@ -10,7 +10,7 @@ import XCTest
 
 final class PuckTests: XCTestCase {
     func testPuckInit(){
-        var puck = Puck()
+        let puck = Puck()
         XCTAssertEqual(puck.isOn, false)
         XCTAssertEqual(puck.point, nil)
     }

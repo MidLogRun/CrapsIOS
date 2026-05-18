@@ -25,7 +25,7 @@ public class GameEngine {
             case .dontLine:
                 return dontLineOutcome(result: result)
             case .come:
-                return comeOutcome(result: result)
+                return comeOutcome(bet: bet, result: result)
             case .field:
                 return fieldOutcome(result: result)
             case .place:
@@ -89,26 +89,29 @@ public class GameEngine {
         return .noAction
     }
 
-    private func comeOutcome(result: RollResult) -> BetOutcome {
-        if !puck.isOn {
-            if result.isNatural {
+    private func comeOutcome(bet: Bet, result: RollResult) -> BetOutcome {
+        if (bet.on == nil) {
+            if result.isNatural{
                 return .win
             }
 
-            if result.isCrap {
+            if result.isCrap{
                 return .lose
             }
 
+            player.resolveBet(bet: bet)
+            let newBet = bet.changeComeToPoint(bet: bet, point: result.total)
+            player.appendBet(bet: newBet)
             return .noAction
         }
 
-        if result.total == 7 {
+        if (result.total == 7) {
             return .lose
         }
-
-        if result.total == puck.point {
+        if (result.total == bet.on){
             return .win
         }
+
 
         return .noAction
     }
@@ -185,15 +188,18 @@ public class GameEngine {
 
             switch betOutcome(bet: bet, result: result){
                 case .win:
+                    print("Player won \(bet.payout)")
                     playerEarnings += bet.payout
                     houseEarnings -= bet.winnings
                     player.resolveBet(bet: bet)
 
                 case .lose:
+                    print("Player lost \(bet.amount)")
                     houseEarnings += bet.amount
                     player.resolveBet(bet: bet)
 
                 case .noAction:
+                    print("No action for \(bet.type)")
                     break
             }
 
@@ -235,7 +241,7 @@ public class GameEngine {
 
     public func playTurn(roll: RollResult) -> Void {
             //TODO figure out game loop
-        print("Roll: \(roll.total)")
+        print("ROLL IS ------------> \(roll.total)")
         self.gameState.updateRollHistory(roll: roll)
             //GameState should track last payout?
         self.payout(result: roll)
@@ -244,9 +250,18 @@ public class GameEngine {
     }
 
     public func playTurn() -> RollResult {
-        //True turn playing
+            //True turn playing
         let roll = CrapsRoller.roll()
         playTurn(roll: roll)
+
+        print("[PLAYER BALANCE \(player.getBalance())]")
         return roll
     }
+
+    var playerCanPlay: Bool {
+        return !(player.getBalance() > 0 && isComeOutRoll)
+    }
+
+
+    
 }

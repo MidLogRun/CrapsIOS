@@ -47,6 +47,9 @@ public class Player {
         self.balance
     }
 
+    func appendBet(bet: Bet) {
+        bets.append(bet)
+    }
         //Bets
     public func makeBet(bet: Bet) -> Bool {
         if (subtractFromBalance(amount: bet.amount)){

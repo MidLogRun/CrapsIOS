@@ -28,7 +28,7 @@ enum BetOutcome {
 //Static factory methods
 public struct Bet {
     public let id: UUID
-    public let on: Int?
+    public var on: Int?
     public let amount: Int
     public var isActive: Bool
     let type: BetType
@@ -50,12 +50,22 @@ public struct Bet {
         self.isActive = isActive
     }
 
+    public func changeComeToPoint(bet: Bet, point: Int) -> Bet {
+        var newBet = bet
+        newBet.on = point
+        return newBet
+    }
+
     public static func passLine( amount: Int) -> Bet {
         Bet(type: BetType.passLine, amount: amount, isActive: true)
     }
 
     public static func dontLine( amount: Int) -> Bet {
         Bet(type: BetType.dontLine, amount: amount, isActive: true)
+    }
+
+    public static func comeBet(amount: Int) -> Bet {
+        Bet(type: BetType.come, amount: amount, isActive: true)
     }
 
     public static func placeBet( amount: Int, on: Int) -> Bet {

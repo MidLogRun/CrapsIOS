@@ -1,16 +1,17 @@
-//
-//  Puck.swift
-//  Craps
-//
-//  Created by Matthew Long on 5/14/26.
-//
+    //
+    //  Puck.swift
+    //  Craps
+    //
+    //  Created by Matthew Long on 5/14/26.
+    //
 
 
 public struct Puck {
     var isOn: Bool
     var point: Optional<Int>
 
-   public init() {
+
+    public init() {
         self.isOn = false
         self.point = nil
     }
@@ -27,7 +28,6 @@ public struct Puck {
                 self.isOn = false
             }
         }
+
     }
-
-
 }
