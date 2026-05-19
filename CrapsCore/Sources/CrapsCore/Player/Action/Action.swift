@@ -6,16 +6,17 @@
 //
 
 
+//Command pattern
 
-enum ActionType {
-    case bet
-    case listBets
-    case clearBet
-    case pressBet
-    case roll
-    case quit
-}
+//enum ActionType {
+//    case bet
+//    case listBets
+//    case clearBet
+//    case pressBet
+//    case roll
+//    case quit
+//}
 
-public struct Action {
-    
+public protocol Action {
+    func execute(on: ActionExecutor) -> Void
 }

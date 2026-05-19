@@ -13,17 +13,19 @@ final class GameEngineTests: XCTestCase {
     var puck: Puck!
     var gameState: GameState!
     var game: GameEngine!
+    var actionStrategy: ActionStrategy!
 
     let playerStartingBalance = 100
     let gameStartingBalance = 1_000
 
     override func setUp() {
         super.setUp()
+        actionStrategy = SimpleActionStrategy(bettingStrategy: DumbPassLineStrategy())
 
         player = Player(
             name: "Jim",
             balance: playerStartingBalance,
-            strategy: DumbPassLineStrategy()
+            strategy: actionStrategy
         )
         puck = Puck()
         gameState = GameState(balance: gameStartingBalance)
@@ -204,20 +206,19 @@ final class GameEngineTests: XCTestCase {
         XCTAssertEqual(game.betOutcome(bet: bet, result: result), .noAction)
     }
 
-    func testBetOutcomeComeLosesOnSevenWhenPuckIsOn() {
-        game.puck.flip(roll: 6)
-
-        let bet = Bet(type: .come, amount: 5, isActive: true)
+    func testBetOutcomComeLosesOnSevenWhenIsPointBet() {
+        var bet = Bet(type: .come, amount: 5, isActive: true)
         let result = RollResult(left: 3, right: 4)
+        bet = bet.changeComeToPoint(bet: bet, point: 6)
 
         XCTAssertEqual(game.betOutcome(bet: bet, result: result), .lose)
     }
 
-    func testBetOutcomeComeWinsWhenPuckPointRepeats() {
-        game.puck.flip(roll: 6)
-
-        let bet = Bet(type: .come, amount: 5, isActive: true)
+    func testBetOutComeComeWinsOnPointRepeat() {
+        var bet = Bet(type: .come, amount: 5, isActive: true)
         let result = RollResult(left: 3, right: 3)
+
+        bet = bet.changeComeToPoint(bet: bet, point: result.total)
 
         XCTAssertEqual(game.betOutcome(bet: bet, result: result), .win)
     }
@@ -423,8 +424,8 @@ final class GameEngineTests: XCTestCase {
         let amount = 5
         let bet = Bet.passLine(amount: amount)
 
-        XCTAssertTrue(player.makeBet(bet: bet))
-        game.playTurn(roll: RollResult(left: 3, right: 4))
+        XCTAssertTrue(player.addBet(bet: bet))
+        game.roll(roll: RollResult(left: 3, right: 4))
 
         XCTAssertEqual(player.getBalance(), playerStartingBalance + amount)
         XCTAssertFalse(game.puck.isOn)
@@ -435,8 +436,8 @@ final class GameEngineTests: XCTestCase {
         let amount = 5
         let bet = Bet.passLine(amount: amount)
 
-        XCTAssertTrue(player.makeBet(bet: bet))
-        game.playTurn(roll: RollResult(left: 1, right: 1))
+        XCTAssertTrue(player.addBet(bet: bet))
+        game.roll(roll: RollResult(left: 1, right: 1))
 
         XCTAssertEqual(player.getBalance(), playerStartingBalance - amount)
         XCTAssertFalse(game.puck.isOn)
@@ -447,8 +448,8 @@ final class GameEngineTests: XCTestCase {
         let amount = 5
         let bet = Bet.passLine(amount: amount)
 
-        XCTAssertTrue(player.makeBet(bet: bet))
-        game.playTurn(roll: RollResult(left: 3, right: 3))
+        XCTAssertTrue(player.addBet(bet: bet))
+        game.roll(roll: RollResult(left: 3, right: 3))
 
         XCTAssertEqual(player.getBalance(), playerStartingBalance - amount)
         XCTAssertTrue(game.puck.isOn)
@@ -457,41 +458,24 @@ final class GameEngineTests: XCTestCase {
 
     func testPlayTurnInactiveBetDoesNotPayPlayerOrHouse() {
         let bet = Bet(type: .field, amount: 5, isActive: false)
-        XCTAssertTrue(player.makeBet(bet: bet))
-        game.playTurn(roll: RollResult(left: 1, right: 1))
+        XCTAssertTrue(player.addBet(bet: bet))
+        game.roll(roll: RollResult(left: 1, right: 1))
         XCTAssertEqual(player.getBalance(), playerStartingBalance - 5)
     }
 
     func testPasslineBetNoActionOnFirstThenLoses() {
         //Hate when this happens
         let bet = Bet.passLine(amount: 5)
-        XCTAssertTrue(player.makeBet(bet: bet))
-        game.playTurn(roll: RollResult(left:3, right: 5))
+        XCTAssertTrue(player.addBet(bet: bet))
+        game.roll(roll: RollResult(left:3, right: 5))
         XCTAssertEqual(player.getBalance(), playerStartingBalance - 5)
         XCTAssertEqual(gameState.getBalance(), gameStartingBalance)
 
-        game.playTurn(roll: RollResult(left: 5, right: 2))
+        game.roll(roll: RollResult(left: 5, right: 2))
         XCTAssertEqual(player.getBalance(), playerStartingBalance - 5)
         XCTAssertEqual(gameState.getBalance(), gameStartingBalance + 5)
     }
 
-    func testGameEngineWithPlayerBettingStrat() {
-        let newPlayer = Player(
-            name: "dumby",
-            balance: 100,
-            strategy: DumbPassLineStrategy()
-        )
-
-        let newGame = GameEngine(puck: Puck() ,player: newPlayer, gameState: gameState )
-        newGame.makeBet()
-        let roll = newGame.playTurn()
-
-        if (roll.isNatural){
-            XCTAssertEqual(newPlayer.getBalance(), 200)
-        } else {
-            XCTAssertEqual(newPlayer.getBalance(), 0)
-        }
-    }
 
     func shouldStop(player: Player, game: GameEngine) -> Bool {
         player.getBalance() == 0 && game.isComeOutRoll
@@ -500,7 +484,6 @@ final class GameEngineTests: XCTestCase {
     func gameLoop(player: Player, game: GameEngine) -> Int{
         var turns = 1
         while !shouldStop(player:player, game: game){
-            game.makeBet()
             game.playTurn()
             turns += 1
         }
@@ -511,19 +494,27 @@ final class GameEngineTests: XCTestCase {
         let gameState1 = GameState(balance: 1000)
         let gameState2 = GameState(balance: 1000)
 
+        let strategy1 = SimpleActionStrategy(
+            bettingStrategy: DumbPassLineStrategy()
+        )
+
         let dumbass = Player(
             name: "dumby",
             balance: 100,
-            strategy: DumbPassLineStrategy()
+            strategy: strategy1
         )
 
         let game1 = GameEngine(puck: Puck(), player: dumbass, gameState: gameState1)
         let turns1 = gameLoop(player: dumbass, game: game1)
 
+        let strategy2 = SimpleActionStrategy(
+            bettingStrategy: BankrollAwarePassLineStrategy(maxPercent: 0.5)
+        )
+
         let smartyPants = Player(
             name: "dumby",
             balance: 100,
-            strategy: BankrollAwarePassLineStrategy(maxPercent: 0.5)
+            strategy: strategy2
         )
 
         let game2 =  GameEngine(puck: Puck() ,player: smartyPants, gameState: gameState2)

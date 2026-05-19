@@ -1,4 +1,6 @@
-public struct CLIStrategy: BettingStrategy {
+public struct CLIBettingStrategy: BettingStrategy {
+
+
 
     public init() {}
 
@@ -102,14 +104,7 @@ public struct CLIStrategy: BettingStrategy {
 //        }
     }
 
-    func determineBet(_ gameState: GameState, _ puck: Puck, _ balance: Int) -> Bet? {
-        guard balance > 0 else {
-            printHeader("No Available Bets")
-            print("You have insufficient funds to bet.")
-            waitForEnter()
-            return nil
-
-        }
+    func determineBet(_ gameState: GameState, _ puck: Puck, _ balance: Int) -> Bet{
         printBetOptions(puck, balance)
 
         while true {
@@ -158,7 +153,6 @@ public struct CLIStrategy: BettingStrategy {
                 case "Q":
                     print()
                     print("No bet placed.")
-                    return nil
 
                 default:
                     print("Invalid choice. Enter one of the listed letters.")
@@ -166,7 +160,7 @@ public struct CLIStrategy: BettingStrategy {
         }
     }
 
-    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet? {
+    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet {
         determineBet(gameState, puck, balance)
     }
 }

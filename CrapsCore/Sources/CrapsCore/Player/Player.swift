@@ -10,9 +10,9 @@ public class Player {
     let name: String
     private var balance: Int
     private var bets: [Bet]
-    private var strategy: BettingStrategy
+    private var strategy: ActionStrategy
 
-    public init(name: String, balance: Int, strategy: BettingStrategy) {
+    public init(name: String, balance: Int, strategy: ActionStrategy) {
         self.name = name
         self.balance = balance
         self.bets = []
@@ -27,6 +27,10 @@ public class Player {
             }
             return false
         }
+    }
+
+    public var hasUnresolvedBets: Bool {
+        return bets.contains(where: { $0.isActive })
     }
 
     private func subtractFromBalance(amount: Int) -> Bool {
@@ -51,24 +55,12 @@ public class Player {
         bets.append(bet)
     }
         //Bets
-    public func makeBet(bet: Bet) -> Bool {
+    public func addBet(bet: Bet) -> Bool {
         if (subtractFromBalance(amount: bet.amount)){
             bets.append(bet)
             return true
         }
         return false
-    }
-
-    public func makeBet(gameState: GameState, puck: Puck) -> Bool {
-        guard let bet = strategy.makeBet(
-            gameState: gameState,
-            puck: puck,
-            balance: balance
-        ) else {
-            return false
-        }
-
-        return makeBet(bet: bet)
     }
 
     public func clearLastBet() -> Void {
@@ -88,4 +80,14 @@ public class Player {
     public func listBets() -> [Bet] {
         return self.bets
     }
+
+    public func decideAction(gameState: GameState, puck: Puck) -> Action {
+        return strategy.getAction(gameState: gameState, puck: puck, balance: balance)
+    }
+
+    public var numBets: Int {
+        self.bets.count
+    }
+
+
 }

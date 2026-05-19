@@ -6,16 +6,52 @@
     //
 
     //One player craps
-public class GameEngine {
+public class GameEngine: ActionExecutor {
+
     var puck: Puck
     private let player: Player
     private let gameState: GameState
-
 
     public init (puck: Puck, player: Player, gameState: GameState){
         self.puck = puck
         self.player = player
         self.gameState = gameState
+    }
+
+    public func clearBets() -> Bool {
+        return true
+    }
+
+    public func clearBet(bet: Bet) -> Bool {
+        return true
+    }
+
+    public func listBets() {
+        print("Player has \(player.numBets) bets")
+    }
+
+    public func roll() -> RollResult {
+        //TODO delete the following line:
+        listBets()
+
+        let roll = CrapsRoller.roll()
+        print("ROLL IS ------------> \(roll.total)")
+        self.gameState.updateRollHistory(roll: roll)
+        self.payout(result: roll)
+        puck.flip(roll: roll.total)
+        return roll
+    }
+
+    public func roll(roll: RollResult) -> Void {
+        print("ROLL IS ------------> \(roll.total)")
+        self.gameState.updateRollHistory(roll: roll)
+
+        self.payout(result: roll)
+        puck.flip(roll: roll.total)
+    }
+
+    public func quit() {
+        print("Quitting!")
     }
 
     func betOutcome(bet: Bet, result: RollResult) -> BetOutcome {
@@ -188,18 +224,18 @@ public class GameEngine {
 
             switch betOutcome(bet: bet, result: result){
                 case .win:
-                    print("Player won \(bet.payout)")
+//                    print("Player won \(bet.payout)")
                     playerEarnings += bet.payout
                     houseEarnings -= bet.winnings
                     player.resolveBet(bet: bet)
 
                 case .lose:
-                    print("Player lost \(bet.amount)")
+//                    print("Player lost \(bet.amount)")
                     houseEarnings += bet.amount
                     player.resolveBet(bet: bet)
 
                 case .noAction:
-                    print("No action for \(bet.type)")
+//                    print("No action for \(bet.type)")
                     break
             }
 
@@ -232,36 +268,24 @@ public class GameEngine {
             return false
         }
 
-        return player.makeBet(bet: bet)
+        return player.addBet(bet: bet)
     }
 
-    public func makeBet() -> Bool {
-        return player.makeBet(gameState: gameState, puck: puck)
-    }
 
-    public func playTurn(roll: RollResult) -> Void {
-            //TODO figure out game loop
-        print("ROLL IS ------------> \(roll.total)")
-        self.gameState.updateRollHistory(roll: roll)
-            //GameState should track last payout?
-        self.payout(result: roll)
-        puck.flip(roll: roll.total) //toggle a flip
-
-    }
-
-    public func playTurn() -> RollResult {
-            //True turn playing
-        let roll = CrapsRoller.roll()
-        playTurn(roll: roll)
-
-        print("[PLAYER BALANCE \(player.getBalance())]")
-        return roll
+    public func playTurn() -> Void {
+        let action: Action = player.decideAction(gameState: self.gameState, puck: puck)
+        action.execute(on: self)
     }
 
     var playerCanPlay: Bool {
         return !(player.getBalance() > 0 && isComeOutRoll)
     }
 
+    public func getLastRoll() -> RollResult? {
+        return self.gameState.getRollHistory().last ?? nil
+    }
 
-    
+    public func shouldStop() -> Bool {
+        return player.getBalance() == 0 && isComeOutRoll && !player.hasUnresolvedBets
+    }
 }

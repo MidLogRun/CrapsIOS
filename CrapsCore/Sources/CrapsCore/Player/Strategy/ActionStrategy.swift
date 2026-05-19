@@ -8,5 +8,22 @@
 
 
 public protocol ActionStrategy {
-    func getAction() -> Action
+    var bettingStrategy: BettingStrategy { get }
+
+    init(bettingStrategy: BettingStrategy)
+    
+    func getAction(gameState: GameState, puck: Puck, balance: Int) -> Action
+
+    func getActionWithBalance(gameState: GameState, puck: Puck, balance: Int) -> Action
+
+}
+
+extension ActionStrategy {
+    public func getAction(gameState: GameState, puck: Puck, balance: Int) -> Action {
+        guard balance > 0 else {
+            return RollAction()
+        }
+
+        return getActionWithBalance(gameState: gameState, puck: puck, balance: balance)
+    }
 }

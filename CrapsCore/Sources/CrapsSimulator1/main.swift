@@ -2,12 +2,14 @@
 //  main.swift
 //  CrapsCore
 //
-//  Created by Matthew Long on 5/17/26.
+//  Created by Matthew Long on 5/18/26.
 //
 
 import CrapsCore
 
-let actionStrategy = SimpleActionStrategy(bettingStrategy: DumbPassLineStrategy())
+let actionStrategy = SimpleActionStrategy(
+    bettingStrategy: BankrollAwarePassLineStrategy(maxPercent: 0.05)
+)
 
 let player = Player(
     name: "Smarty pants",

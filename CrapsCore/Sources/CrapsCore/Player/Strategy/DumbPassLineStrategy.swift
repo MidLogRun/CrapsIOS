@@ -10,15 +10,7 @@ public struct DumbPassLineStrategy: BettingStrategy {
 
     public init() {}
 
-    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet? {
-         guard !puck.isOn else {
-             return nil
-         }
-
-         guard balance > 0 else {
-             return nil
-         }
-
+    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet {
          return .passLine(amount: balance)
     }
 }

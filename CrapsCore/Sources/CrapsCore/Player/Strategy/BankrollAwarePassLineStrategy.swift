@@ -12,15 +12,7 @@ public struct BankrollAwarePassLineStrategy: BettingStrategy {
         self.maxPercent = maxPercent
     }
 
-    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet? {
-        guard !puck.isOn else {
-            return nil
-        }
-
-        guard balance > 0 else {
-            return nil
-        }
-
+    public func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet {
         let amount = max(1, Int(Double(balance) * maxPercent))
         return Bet.passLine(amount: amount)
     }

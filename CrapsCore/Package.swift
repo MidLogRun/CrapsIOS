@@ -20,6 +20,9 @@ let package = Package(
         .executableTarget(
             name: "CrapsCLI",
             dependencies: ["CrapsCore"]),
+        .executableTarget(
+            name: "CrapsSimulator1",
+            dependencies: ["CrapsCore"]),
         .testTarget(
             name: "CrapsCoreTests",
             dependencies: ["CrapsCore"]

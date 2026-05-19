@@ -8,6 +8,5 @@
 
 
 public protocol BettingStrategy {
-    func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet?
-
+    func makeBet(gameState: GameState, puck: Puck, balance: Int) -> Bet
 }
