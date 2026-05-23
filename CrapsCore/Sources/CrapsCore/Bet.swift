@@ -26,7 +26,7 @@ enum BetOutcome {
 }
 
 //Static factory methods
-public struct Bet {
+public struct Bet: Equatable {
     public let id: UUID
     public var on: Int?
     public let amount: Int

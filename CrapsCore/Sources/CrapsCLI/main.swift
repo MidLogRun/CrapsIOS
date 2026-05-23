@@ -7,7 +7,10 @@
 
 import CrapsCore
 
-let actionStrategy = SimpleActionStrategy(bettingStrategy: DumbPassLineStrategy())
+let actionStrategy = CLIActionStrategy(
+    bettingStrategy: CLIBettingStrategy()
+)
+
 
 let player = Player(
     name: "Smarty pants",

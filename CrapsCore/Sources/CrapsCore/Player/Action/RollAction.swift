@@ -8,7 +8,6 @@
 
 public struct RollAction: Action {
     public func execute(on: ActionExecutor) {
-        
         on.roll()
     }
 

@@ -23,11 +23,21 @@ public class GameEngine: ActionExecutor {
     }
 
     public func clearBet(bet: Bet) -> Bool {
-        return true
+        //Function preface: bet argument always exists here
+        return player.clearBet(bet: bet)
+
     }
 
     public func listBets() {
-        print("Player has \(player.numBets) bets")
+        print("=====CURRENT BETS=====")
+        for (index, bet) in player.listBets().enumerated() {
+            print("\(index + 1)) BET \(bet.id)")
+            print("   TYPE \(bet.type)")
+            print("   AMOUNT \(bet.amount)")
+            if let on = bet.on {
+                print("   ON \(on)")
+            }
+        }
     }
 
     public func roll() -> RollResult {
@@ -52,6 +62,7 @@ public class GameEngine: ActionExecutor {
 
     public func quit() {
         print("Quitting!")
+        //Quit logic goes here
     }
 
     func betOutcome(bet: Bet, result: RollResult) -> BetOutcome {

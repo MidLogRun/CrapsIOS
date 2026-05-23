@@ -7,7 +7,7 @@
 
 import CrapsCore
 
-let actionStrategy = SimpleActionStrategy(
+let actionStrategy = BetRollActionStrategy(
     bettingStrategy: BankrollAwarePassLineStrategy(maxPercent: 0.05)
 )
 

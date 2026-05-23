@@ -29,6 +29,17 @@ public class Player {
         }
     }
 
+    public func clearBet(bet: Bet) -> Bool {
+        guard let index = bets.firstIndex(of: bet) else {
+            return false
+        }
+
+        let removedBet = bets.remove(at: index)
+        balance += removedBet.amount
+
+        return true
+    }
+
     public var hasUnresolvedBets: Bool {
         return bets.contains(where: { $0.isActive })
     }
@@ -82,7 +93,7 @@ public class Player {
     }
 
     public func decideAction(gameState: GameState, puck: Puck) -> Action {
-        return strategy.getAction(gameState: gameState, puck: puck, balance: balance)
+        return strategy.getAction(gameState: gameState, puck: puck, snapshot: PlayerSnapshot(balance: balance, bets: bets))
     }
 
     public var numBets: Int {

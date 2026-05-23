@@ -13,9 +13,9 @@ public struct SimpleActionStrategy: ActionStrategy {
         self.bettingStrategy = bettingStrategy
     }
 
-    public func getActionWithBalance(gameState: GameState, puck: Puck, balance: Int) -> any Action {
-        let bet = bettingStrategy.makeBet(gameState: gameState, puck: puck, balance: balance)
-        return BetAction(bet: bet)
+    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> any Action {
+        let bet = bettingStrategy.makeBet(gameState: gameState, puck: puck, balance: snapshot.balance)
+        return MakeBetAction(bet: bet)
     }
 
 
