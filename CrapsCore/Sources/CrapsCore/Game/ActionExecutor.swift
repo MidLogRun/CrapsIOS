@@ -6,8 +6,6 @@
 //
 
 public protocol ActionExecutor{
-    func makeBet(bet: Bet) -> Bool
-    func clearBets() -> Bool
     func clearBet(bet: Bet) -> Bool
     func listBets()
     func roll() -> RollResult

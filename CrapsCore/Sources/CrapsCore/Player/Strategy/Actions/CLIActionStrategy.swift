@@ -22,9 +22,9 @@ public struct CLIActionStrategy: ActionStrategy {
         print("F) Quit")
     }
 
-    func printBets(snapshot: PlayerSnapshot){
+    func printBets(player: Player){
         print("=====CURRENT BETS=====")
-        for (index, bet) in snapshot.bets.enumerated() {
+        for (index, bet) in player.listBets().enumerated() {
             print("\(index + 1)) BET \(bet.id)")
             print("   TYPE \(bet.type)")
             print("   AMOUNT \(bet.amount)")
@@ -34,13 +34,14 @@ public struct CLIActionStrategy: ActionStrategy {
         }
     }
 
-    func decideBetToRemove(snapshot: PlayerSnapshot) -> Bet? {
-        if snapshot.bets.isEmpty {
+    func decideBetToRemove(player: Player) -> Bet? {
+        let bets = player.listBets()
+        if bets.isEmpty {
             print("You have no bets to remove.")
             return nil
         }
 
-        printBets(snapshot: snapshot)
+        printBets(player: player)
 
         while true {
             print("Select a bet number to remove:")
@@ -49,16 +50,16 @@ public struct CLIActionStrategy: ActionStrategy {
             guard let line = readLine(),
                   let choice = Int(line),
                   choice >= 1,
-                  choice <= snapshot.bets.count else {
+                  choice <= bets.count else {
                 print("Invalid bet selection.")
                 continue
             }
 
-            return snapshot.bets[choice - 1]
+            return bets[choice - 1]
         }
     }
 
-    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> any Action {
+    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, player: Player) -> any Action {
         printOptionList()
         while true {
             print("Select an option:")
@@ -73,20 +74,24 @@ public struct CLIActionStrategy: ActionStrategy {
                     let bet = bettingStrategy.makeBet(
                         gameState: gameState,
                         puck: puck,
-                        balance: snapshot.balance
+                        balance: player.getBalance()
                     )
-                    return MakeBetAction(bet: bet)
+
+                    guard canMakeBet(bet: bet, gameState: gameState) else {
+                        return RollAction()
+                    }
+                    return MakeBetAction(bet: bet, player: player)
                 case "B":
-                    guard let bet = decideBetToRemove(snapshot: snapshot) else {
+                    guard let bet = decideBetToRemove(player: player) else {
                         continue
                     }
-                    return ClearBetAction(bet: bet)
+                    return ClearBetAction(bet: bet, player: player)
                 case "C":
                     return RollAction()
                 case "D":
-                    print("Balance: \(snapshot.balance)")
+                    print("Balance: \(player.getBalance())")
                 case "E":
-                    printBets(snapshot: snapshot)
+                    printBets(player: player)
                 case "F":
                     print("Quitting game.")
                     return QuitAction()

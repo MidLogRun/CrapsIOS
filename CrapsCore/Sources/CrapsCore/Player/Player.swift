@@ -74,6 +74,10 @@ public class Player {
         return false
     }
 
+    public func makeBet(bet: Bet) -> Bool {
+        return addBet(bet: bet)
+    }
+
     public func clearLastBet() -> Void {
         bets.popLast()
     }
@@ -93,7 +97,7 @@ public class Player {
     }
 
     public func decideAction(gameState: GameState, puck: Puck) -> Action {
-        return strategy.getAction(gameState: gameState, puck: puck, snapshot: PlayerSnapshot(balance: balance, bets: bets))
+        return strategy.getAction(gameState: gameState, puck: puck, player: self)
     }
 
     public var numBets: Int {

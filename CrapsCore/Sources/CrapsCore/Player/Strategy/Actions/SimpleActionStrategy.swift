@@ -7,15 +7,20 @@
 
 
 public struct SimpleActionStrategy: ActionStrategy {
+
     public let bettingStrategy: any BettingStrategy
 
     public init(bettingStrategy: any BettingStrategy) {
         self.bettingStrategy = bettingStrategy
     }
 
-    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> any Action {
-        let bet = bettingStrategy.makeBet(gameState: gameState, puck: puck, balance: snapshot.balance)
-        return MakeBetAction(bet: bet)
+    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, player: Player) -> any Action {
+        let bet = bettingStrategy.makeBet(gameState: gameState, puck: puck, balance: player.getBalance())
+
+        guard canMakeBet(bet: bet, gameState: gameState) else {
+            return RollAction()
+        }
+        return MakeBetAction(bet: bet, player: player)
     }
 
 

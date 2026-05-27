@@ -5,7 +5,6 @@
 //  Created by Matthew Long on 5/18/26.
 //
 
-import CrapsCore
 
 let actionStrategy = BetRollActionStrategy(
     bettingStrategy: BankrollAwarePassLineStrategy(maxPercent: 0.05)
@@ -50,9 +49,10 @@ func gameLoop(player: Player, game: GameEngine) -> Int {
     return turns
 }
 
-
-var turn = gameLoop(player: player, game: game)
-
-print(
-    "Played \(turn) turns. Should've quit on turn \(turnWhenBalanceHighest) $\(highestBalance)"
-)
+@main
+struct CrapsSimulatorMain {
+    static func main() async {
+        let turn = gameLoop(player: player, game: game)
+        print("Played \(turn) turns. Should've quit on turn \(turnWhenBalanceHighest) $\(highestBalance)")
+    }
+}

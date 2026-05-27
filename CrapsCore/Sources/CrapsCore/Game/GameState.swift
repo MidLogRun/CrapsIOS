@@ -1,23 +1,26 @@
-//
-//  GameState.swift
-//  Craps
-//
-//  Created by Matthew Long on 5/14/26.
-//
+    //
+    //  GameState.swift
+    //  Craps
+    //
+    //  Created by Matthew Long on 5/14/26.
+    //
 
 
 public class GameState {
-   private var rollHistory: [RollResult]
+    private var puck: Puck
+    private var rollHistory: [RollResult]
     private var balance: Int
 
-   public init() {
+    public init() {
         self.rollHistory = []
         balance = 0
+        puck = Puck()
     }
 
     public init(balance: Int){
         self.rollHistory = []
         self.balance = balance
+        puck = Puck()
     }
 
     public func updateRollHistory(roll: RollResult) -> Void {
@@ -43,5 +46,10 @@ public class GameState {
     public func getBalance() -> Int {
         self.balance
     }
+
+    var isComeOutRoll: Bool {
+        return !puck.isOn
+    }
+
 
 }

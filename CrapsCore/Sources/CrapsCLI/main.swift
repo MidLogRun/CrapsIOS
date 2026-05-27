@@ -1,11 +1,10 @@
 //
-//  main.swift
+//  crapsCLI.swift
 //  CrapsCore
 //
 //  Created by Matthew Long on 5/17/26.
 //
 
-import CrapsCore
 
 let actionStrategy = CLIActionStrategy(
     bettingStrategy: CLIBettingStrategy()
@@ -54,6 +53,4 @@ func gameLoop(player: Player, game: GameEngine) -> Int {
 
 var turn = gameLoop(player: player, game: game)
 
-print(
-    "Played \(turn) turns. Should've quit on turn \(turnWhenBalanceHighest) $\(highestBalance)"
-)
+print("Played \(turn) turns. Should've quit on turn \(turnWhenBalanceHighest) $\(highestBalance)")

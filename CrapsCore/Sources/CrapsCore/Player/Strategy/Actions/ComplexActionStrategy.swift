@@ -16,7 +16,16 @@ public struct ComplexActionStrategy: ActionStrategy {
 
 
 
-    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> any Action {
+    public mutating func getActionWithBalance(gameState: GameState, puck: Puck, player: Player) -> any Action {
+        let bet = bettingStrategy.makeBet(
+            gameState: gameState,
+            puck: puck,
+            balance: player.getBalance()
+        )
+//        guard canMakeBet(bet: bet, gameState: gameState) else {
+//            return RollAction()
+//        }
+
         return RollAction()//TODO
     }
 

@@ -214,6 +214,9 @@
 			);
 			mainGroup = DBF02FDB2FB59DA70042778A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DB2805002FC74D3A00339D92 /* XCLocalSwiftPackageReference "CrapsCore" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DBF02FE52FB59DA70042778A /* Products */;
 			projectDirPath = "";
@@ -591,6 +594,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		DB2805002FC74D3A00339D92 /* XCLocalSwiftPackageReference "CrapsCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = CrapsCore;
+		};
+/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = DBF02FDC2FB59DA70042778A /* Project object */;
 }

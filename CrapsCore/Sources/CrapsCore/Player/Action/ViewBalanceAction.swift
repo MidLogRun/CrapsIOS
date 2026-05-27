@@ -10,14 +10,12 @@
 public struct ViewBalanceAction: Action {
     let balance: Int
 
-    init(balance: Int){
-        self.balance = balance
+    init(player: Player){
+        self.balance = player.getBalance()
     }
-
 
     public func execute(on: any ActionExecutor) {
         print("Player balance is: ", balance)
     }
-
 
 }

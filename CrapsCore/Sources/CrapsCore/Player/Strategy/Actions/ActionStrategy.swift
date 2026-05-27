@@ -12,22 +12,36 @@ public protocol ActionStrategy {
 
     init(bettingStrategy: BettingStrategy)
     
-    mutating func getAction(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> Action
+    mutating func getAction(gameState: GameState, puck: Puck, player: Player) -> Action
 
-    mutating func getActionWithBalance(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> Action
+    mutating func getActionWithBalance(gameState: GameState, puck: Puck, player: Player) -> Action
 
 }
 
+//Define canMakeBet here
+
+
 extension ActionStrategy {
-    public mutating func getAction(gameState: GameState, puck: Puck, snapshot: PlayerSnapshot) -> Action {
-        guard snapshot.balance > 0 else {
+
+    func canMakeBet(bet: Bet, gameState: GameState) -> Bool {
+        switch bet.type {
+            case .passLine, .dontLine:
+                return gameState.isComeOutRoll
+
+            default:
+                return true
+        }
+    }
+
+    public mutating func getAction(gameState: GameState, puck: Puck, player: Player) -> Action {
+        guard player.getBalance() > 0 else {
             return RollAction()
         }
 
         return getActionWithBalance(
             gameState: gameState,
             puck: puck,
-            snapshot: snapshot
+            player: player
         )
     }
 }

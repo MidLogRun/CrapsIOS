@@ -18,10 +18,6 @@ public class GameEngine: ActionExecutor {
         self.gameState = gameState
     }
 
-    public func clearBets() -> Bool {
-        return true
-    }
-
     public func clearBet(bet: Bet) -> Bool {
         //Function preface: bet argument always exists here
         return player.clearBet(bet: bet)
@@ -263,25 +259,6 @@ public class GameEngine: ActionExecutor {
     public var getPuckPoint: String {
         puck.point.map(String.init) ?? "none"
     }
-
-    public func canMakeBet(_ bet: Bet) -> Bool {
-        switch bet.type {
-            case .passLine, .dontLine:
-                return isComeOutRoll
-
-            default:
-                return true
-        }
-    }
-
-    public func makeBet(bet: Bet) -> Bool {
-        guard canMakeBet(bet) else {
-            return false
-        }
-
-        return player.addBet(bet: bet)
-    }
-
 
     public func playTurn() -> Void {
         let action: Action = player.decideAction(gameState: self.gameState, puck: puck)

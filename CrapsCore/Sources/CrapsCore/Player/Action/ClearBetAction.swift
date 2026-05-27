@@ -8,13 +8,15 @@
 
 public struct ClearBetAction: Action {
     let bet: Bet
+    var player: Player
 
-    init(bet: Bet) {
+    init(bet: Bet, player: Player) {
         self.bet = bet
+        self.player = player
     }
 
     public func execute(on: any ActionExecutor) {
-        _ = on.clearBet(bet: bet)
+        _ = player.clearBet(bet: bet)
     }
 
 }

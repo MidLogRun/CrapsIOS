@@ -9,12 +9,14 @@
 
 public struct MakeBetAction: Action {
     let bet: Bet
+    var player: Player
 
-    init(bet: Bet) {
+    public init(bet: Bet, player: Player) {
         self.bet = bet
+        self.player = player
     }
 
     public func execute(on: ActionExecutor) {
-        _ = on.makeBet(bet: bet)
+        _ = player.makeBet(bet: bet)
     }
 }
